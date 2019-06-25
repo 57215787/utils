@@ -10,10 +10,8 @@ const dpr = window.devicePixelRatio || 1;
 docEl.setAttribute('data-dpr', `${dpr}`);
 if (isIOS) {
     docEl.setAttribute('data-device', 'iphone');
-
 } else if (isAndroid) {
     docEl.setAttribute('data-device', 'android');
-
 }
 
 if (window.devicePixelRatio >= 2) {
