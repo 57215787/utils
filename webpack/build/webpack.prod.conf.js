@@ -8,10 +8,10 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const webpackConfig = merge(baseWebpackConfig, {
-    mode: "production",
+    mode: 'production',
     module: {
         rules: [{
             test: /\.(sa|sc|c)ss$/,
@@ -54,14 +54,18 @@ const webpackConfig = merge(baseWebpackConfig, {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[hash].css',
-            chunkFilename: '[id].[hash].css'
-        })
+            filename: '[name].[hash:8].css',
+            chunkFilename: '[id].[hash:8].css'
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin(),
     ],
-    optimization: {
-        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
-    }
+
 })
 
+if (config.build.bundleAnalyzerReport) {
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+}
 
 module.exports = webpackConfig
