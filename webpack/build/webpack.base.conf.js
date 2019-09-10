@@ -15,6 +15,7 @@ module.exports = {
     },
     output: {
         path: config.build.assetsRoot,
+        chunkFilename: `[name].bundle.js`,
         filename: `[name].js`,
     },
     resolve: {
@@ -52,8 +53,8 @@ module.exports = {
         child_process: 'empty'
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            '_': 'lodash',
-        }),
+        // new webpack.ProvidePlugin({
+        //     '_': 'lodash',
+        // }),
     ]
 }
