@@ -8,13 +8,20 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
 const webpackConfig = merge(baseWebpackConfig, {
     mode: 'production',
+    devtool: 'inline-source-map',
+    output: {
+        path: config.build.assetsRoot,
+        chunkFilename: `[name].[hash:8].js`,
+        filename: `[name].[hash:8].js`,
+    },
     module: {
         rules: [{
-            test: /\.(sa|sc|c)ss$/,
+            test: /\.s[ac]ss$/i,
             use: [{
                     loader: MiniCssExtractPlugin.loader,
                 },
@@ -25,8 +32,21 @@ const webpackConfig = merge(baseWebpackConfig, {
                     options: {
                         // Prefer `dart-sass`
                         implementation: require('sass'),
+                        sassOptions: {
+                            fiber: false,
+                        },
+
                     },
                 },
+            ],
+
+        }, {
+            test: /\.css$/i,
+            use: [{
+                    loader: MiniCssExtractPlugin.loader,
+                },
+                'css-loader',
+                'postcss-loader',
             ]
         }]
     },
@@ -60,7 +80,16 @@ const webpackConfig = merge(baseWebpackConfig, {
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin(),
     ],
-
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserJSPlugin({
+            cache: true,
+            parallel: true,
+        }), new OptimizeCSSAssetsPlugin({
+            cache: true,
+            parallel: true,
+        })],
+    }
 })
 
 if (config.build.bundleAnalyzerReport) {
@@ -68,4 +97,6 @@ if (config.build.bundleAnalyzerReport) {
     webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
-module.exports = webpackConfig
+module.exports = smp.wrap(
+    webpackConfig
+);

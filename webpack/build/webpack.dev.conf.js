@@ -11,28 +11,54 @@ const portfinder = require('portfinder')
 
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({
+    size: os.cpus().length
+});
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
     mode: "development",
+    output: {
+        path: config.build.assetsRoot,
+        chunkFilename: `[name].js`,
+        filename: `[name].js`,
+    },
     module: {
-        rules: [{
-            test: /\.(sa|sc|c)ss$/,
-            use: [
-
-                'style-loader',
-                'css-loader',
-                'postcss-loader',
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        // Prefer `dart-sass`
-                        implementation: require('sass'),
+        rules: [
+            
+            {
+                test: /\.s[ac]ss$/i,
+                exclude: /node_modules/,
+                use: ['style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            // Prefer `dart-sass`
+                            implementation: require('sass'),
+                            sassOptions: {
+                                fiber: false,
+                            },
+                        },
                     },
-                },
-            ],
-        }, ]
+                ],
+            },
+            {
+                test: /\.css$/i,
+                exclude: /node_modules/,
+                // use: `happypack/loader?id=css`,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                ]
+            }
+        ]
     },
     devServer: {
         clientLogLevel: 'warning',
@@ -64,6 +90,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             },
 
         }),
+        // new HappyPack({
+        //     id: 'css',
+        //     threadPool: happyThreadPool,
+        //     loaders: [
+
+        //     ],
+        // }),
     ]
 })
 

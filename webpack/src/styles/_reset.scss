@@ -1,45 +1,43 @@
 * {
-    tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: transparent;
-    -ms-tap-highlight-color: transparent;
-    box-sizing: inherit;
-    padding: 0;
-    margin: 0;
-    font-size: inherit;
-    line-height: inherit;
-    font-weight: inherit;
-    &:before,
-    &:after {
-        box-sizing: inherit;
-        -webkit-tap-highlight-color: transparent;
-    }
+	-webkit-tap-highlight-color: transparent;
+	box-sizing: inherit;
+	padding: 0;
+	margin: 0;
+	font-size: inherit;
+	line-height: inherit;
+	font-weight: inherit;
+	
+	&::before,
+	&::after {
+		box-sizing: inherit;
+		-webkit-tap-highlight-color: transparent;
+	}
 }
 
 html {
-    text-size-adjust: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.2;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    user-select: none;
-    box-sizing: border-box;
+	text-size-adjust: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.2;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	user-select: none;
+	box-sizing: border-box;
 }
 
 html * {
-    outline: 0;
-    -webkit-text-size-adjust: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	outline: 0;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-
 a {
-    text-decoration: none;
-    cursor: pointer;
-    background-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-text-decoration-skip: objects;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-text-decoration-skip: objects;
 }
 
 i,
@@ -47,19 +45,19 @@ s,
 strong,
 b,
 em {
-    font-style: normal;
-    font-weight: normal;
+	font-style: normal;
+	font-weight: normal;
 }
 
 img {
-    border-style: none;
-    display: block;
-    border-width: 0;
+	border-style: none;
+	display: block;
+	border-width: 0;
 }
 
 ol,
 ul {
-    list-style: none
+	list-style: none
 }
 
 h1,
@@ -68,6 +66,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: 100%;
-    font-weight: 500
+	font-size: 100%;
+	font-weight: 500
 }
