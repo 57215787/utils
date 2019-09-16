@@ -20,35 +20,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         filename: `[name].[hash:8].js`,
     },
     module: {
-        rules: [{
-            test: /\.s[ac]ss$/i,
-            use: [{
-                    loader: MiniCssExtractPlugin.loader,
-                },
-                'css-loader',
-                'postcss-loader',
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        // Prefer `dart-sass`
-                        implementation: require('sass'),
-                        sassOptions: {
-                            fiber: false,
-                        },
-
-                    },
-                },
-            ],
-
-        }, {
-            test: /\.css$/i,
-            use: [{
-                    loader: MiniCssExtractPlugin.loader,
-                },
-                'css-loader',
-                'postcss-loader',
-            ]
-        }]
+        rules: [
+            
+    ]
     },
     plugins: [
         new webpack.HashedModuleIdsPlugin(),
@@ -73,10 +47,7 @@ const webpackConfig = merge(baseWebpackConfig, {
                 useShortDoctype: true
             }
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[hash:8].css',
-            chunkFilename: '[id].[hash:8].css'
-        }),
+        
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin(),
     ],

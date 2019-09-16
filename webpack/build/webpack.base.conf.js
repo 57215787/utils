@@ -8,7 +8,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production';
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -22,7 +23,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', 'jsx', '.ts', 'tsx', 'json', 'vue'],
+        extensions: ['.js', '.ts', 'tsx', 'json', 'vue'],
         alias: {
             '@': resolve('src'),
             'vue$': 'vue/dist/vue.esm.js',
@@ -33,52 +34,12 @@ module.exports = {
             {
                 test: /\.vue$/,
                 exclude: /node_modules/,
-                use: [{
+                use: [
+                    {
                     loader: `vue-loader`,
-                    options: {
-                        loaders: {
-                            css: [
-                                'vue-style-loader',
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        sourceMap: true
-                                    }
-                                }
-                            ],
-                            postcss: [
-                                'vue-style-loader',
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        sourceMap: true
-                                    }
-                                }
-                            ],
-                            scss: [
-                                'vue-style-loader', {
-                                    loader: 'css-loader',
-                                    options: {
-                                        sourceMap: true
-                                    }
-                                }, {
-                                    loader: 'sass-loader',
-                                    options: {
-                                        sourceMap: true
-                                    }
-                                }
-                            ]
-                        },
-                        cssSourceMap: true,
-                        cacheBusting: true,
-                        transformToRequire: {
-                            video: [
-                                "src",
-                                "poster"
-                            ],
-                            source: "src",
-                            img: "src",
-                            image: "xlink:href"
+                    options:{
+                        compilerOptions: {
+                            preserveWhitespace: false
                         }
                     }
                 }],
@@ -95,42 +56,65 @@ module.exports = {
                     'html-loader',
                 ]
             }, {
-                test: /\.(js|jsx)$/,
+                test: /\.(js|ts|tsx)$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader',
-                ],
+                use: {
+                    loader: 'babel-loader',
+                    //enable sub-packages to find babel config
+                    options: {
+                        rootMode: 'upward'
+                    }
+                },
                 include: path.resolve('src'),
             },
             {
-                test: /\.(ts|tsx)$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                test: /\.s[ac]ss$/i,
+                use: [
+                    devMode ? 'style-loader' : {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                    'postcss-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            // Prefer `dart-sass`
+                            implementation: require('sass'),
+                            sassOptions: {
+                                fiber: false,
+                            },                            
+                        },
+                    },
+                    {
+                        loader:'sass-resources-loader',
+                        options:{
+                            resources: [path.resolve(__dirname, '../src/styles/_variables.scss')]
+                        }
+                    }
+                ],
+            },
+            {
+                test: /\.css$/i,
+                use: [
+                    devMode ? 'style-loader' : {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                    'postcss-loader',
+                ]
             }
         ]
     },
-    node: {
-        // process: true,
-        setImmediate: 'empty',
-        fs: 'empty',
-        dgram: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        child_process: 'empty'
-    },
     plugins: [
-        // new webpack.ProvidePlugin({
-        //     // '_': 'lodash',
-        //     'Vue': 'vue'
-        // }),
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 5
         }),
         new LodashModuleReplacementPlugin(),
         new VueLoaderPlugin(),
-        new StyleLintPlugin({
-            syntax:'scss'
-        })
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        }),
         // new HappyPack({
         //     id: 'js',
         //     threadPool: happyThreadPool,

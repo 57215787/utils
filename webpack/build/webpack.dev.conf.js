@@ -25,61 +25,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     output: {
         path: config.build.assetsRoot,
         chunkFilename: `[name].js`,
-        filename: `[name].js`,
-    },
-    module: {
-        rules: [
-            
-            {
-                test: /\.s[ac]ss$/i,
-                exclude: /node_modules/,
-                use: ['style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            // Prefer `dart-sass`
-                            implementation: require('sass'),
-                            sassOptions: {
-                                fiber: false,
-                            },
-                        },
-                    },
-                ],
-            },
-            {
-                test: /\.css$/i,
-                exclude: /node_modules/,
-                // use: `happypack/loader?id=css`,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                ]
-            }
-        ]
+        publicPath: '/'
     },
     devServer: {
-        clientLogLevel: 'warning',
-        compress: true,
+        progress: true,
         contentBase: "./public",
         host: HOST || config.dev.host,
         port: PORT || config.dev.port,
         open: config.dev.autoOpenBrowser,
-        overlay: {
-            warnings: true,
-            errors: true
-        },
-        quiet: true,
-        useLocalIp: true,
-
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: "index.html",
+            // chunks: ['chunks'],
             template: "./public/index.html",
-            inject: true,
+            filename: "index.html",
             meta: {
                 'Content-Security-Policy': {
                     'http-equiv': `X-UA-Compatible`,
@@ -97,7 +56,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
         //     ],
         // }),
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                chunks: {
+                    chunks: 'all',
+                    minChunks: 2,
+                    minSize: 0,
+                    name: 'chunks'
+                }
+            },
+        },
+    },
 })
 
 module.exports = new Promise((resolve, reject) => {
