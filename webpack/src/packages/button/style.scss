@@ -1,0 +1,18 @@
+.s-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    touch-action: manipulation;
+    user-select: none;
+    border: 1px solid transparent;
+
+    span {
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      font-family: inherit;
+    }
+}
