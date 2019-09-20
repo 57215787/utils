@@ -1,0 +1,26 @@
+.s-skeleton{
+     width: 100%;
+     height: auto;
+    &__list{
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    &__item{
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+        animation: s-skeletonRect 2s linear infinite;
+    }
+}
+
+
+@keyframes s-skeletonRect {
+  50% {
+    opacity: 0.4;
+  }
+
+  75% {
+    opacity: 0.4;
+  }
+}

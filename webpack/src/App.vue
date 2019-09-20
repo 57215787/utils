@@ -1,16 +1,15 @@
 <template>
     <div id="app">
-        <!-- <router-view :key="$route.fullPath" /> -->
-        <s-button>
-            fsjk
-        </s-button>
+        <skeleton :contents="[{height:400}]"/>
     </div>
 </template>
 <script lang="ts">
 import SButton from "./packages/button"
+import Skeleton from "./packages/skeleton"
 export default {
     components:{
-        SButton
+        SButton,
+        Skeleton
     }
 }
 </script>
