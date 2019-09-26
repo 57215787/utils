@@ -6,9 +6,5 @@ module.exports = {
       remove: process.env.UNI_PLATFORM !== 'h5'
     }),
     require('@dcloudio/vue-cli-plugin-uni/packages/postcss'),
-    require('cssnano')({
-      "postcss-zindex": false,
-      remove: process.env.UNI_PLATFORM !== 'h5'
-    }),
   ]
 }

@@ -83,7 +83,6 @@ export default Vue.extend({
                 borderRadius,
                 top: toViewport(y),
                 left: toViewport(x),
-                backgroundColor: dark ? this.secondaryColor : this.primaryColor
             };
         }
         let children;

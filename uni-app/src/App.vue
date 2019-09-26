@@ -15,5 +15,5 @@
 </script>
 
 <style lang="scss">
-   @import "@/styles/_reboot.scss"
+   @import "@/styles/_reboot.scss";
 </style>

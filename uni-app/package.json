@@ -12,7 +12,7 @@
     "build:mp-baidu": "cross-env NODE_ENV=production UNI_PLATFORM=mp-baidu vue-cli-service uni-build",
     "build:mp-qq": "cross-env NODE_ENV=production UNI_PLATFORM=mp-qq vue-cli-service uni-build",
     "build:mp-toutiao": "cross-env NODE_ENV=production UNI_PLATFORM=mp-toutiao vue-cli-service uni-build",
-    "build:mp-weixin": "cross-env NODE_ENV=production UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
+    "build:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
     "dev:app-plus": "cross-env NODE_ENV=development UNI_PLATFORM=app-plus vue-cli-service uni-build --watch",
     "dev:custom": "cross-env NODE_ENV=development uniapp-cli custom",
     "dev:h5": "cross-env NODE_ENV=development UNI_PLATFORM=h5 vue-cli-service uni-serve",
@@ -21,7 +21,8 @@
     "dev:mp-qq": "cross-env NODE_ENV=development UNI_PLATFORM=mp-qq vue-cli-service uni-build --watch",
     "dev:mp-toutiao": "cross-env NODE_ENV=development UNI_PLATFORM=mp-toutiao vue-cli-service uni-build --watch",
     "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
-    "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js"
+    "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js",
+    "bootstrap":"cnpm i"
   },
   "dependencies": {
     "@dcloudio/uni-app-plus": "^2.0.0-22420190823021",
@@ -54,7 +55,6 @@
     "@vue/cli-plugin-typescript": "^3.5.1",
     "@vue/cli-service": "^3.11.0",
     "babel-plugin-import": "^1.11.0",
-    "cssnano": "^4.1.10",
     "postcss-comment": "^2.0.0",
     "sass": "^1.22.12",
     "sass-loader": "^8.0.0",
