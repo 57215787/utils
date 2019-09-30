@@ -14,27 +14,11 @@ window.onerror = function(message, source, line, column, error) {
     console.log('ONE ERROR HANDLER TO RULE THEM ALL:', message);
 }
 
-// let array = [{
-//     num: 1
-// }, {
-//     num: 0
-// }, {
-//     num: 3
-// }, {
-//     num: 2
-// }]
-
-// array.sort((a, b) => b.num - a.num)
-
-
-// console.log(JSON.stringify(array,null,4))
-
-
 
 new Vue({
     render: (h) => h(App)
 }).$mount('#app');
 
-
-
+// console.log(window.__VUE_DEVTOOLS_GLOBAL_HOOK__)
+console.log(Reflect.ownKeys)
 
