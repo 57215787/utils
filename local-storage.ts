@@ -3,6 +3,7 @@ const hasLocalStorage = typeof window.localStorage !== 'undefined';
 function setItem(key: string, data: any): void {
     try {
         if (getItem(key)) {
+            console.log(`has ${key}`)
             return;
         }
         if (hasLocalStorage) {
