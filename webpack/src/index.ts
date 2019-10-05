@@ -10,15 +10,14 @@ import "./styles/_reboot.scss";
 
 // import "fundebug-revideo"
 
-window.onerror = function(message, source, line, column, error) {
-    console.log('ONE ERROR HANDLER TO RULE THEM ALL:', message);
-}
+
+// window.onerror = function(message, source, line, column, error) {
+//     console.log('ONE ERROR HANDLER TO RULE THEM ALL:', message);
+// }
 
 
 new Vue({
     render: (h) => h(App)
 }).$mount('#app');
 
-// console.log(window.__VUE_DEVTOOLS_GLOBAL_HOOK__)
-console.log(Reflect.ownKeys)
 
