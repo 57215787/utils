@@ -1,4 +1,4 @@
-const hasLocalStorage = typeof window.localStorage !== 'undefined';
+const hasLocalStorage = typeof localStorage !== 'undefined';
 
 function setItem(key: string, data: any): void {
     try {
@@ -7,7 +7,7 @@ function setItem(key: string, data: any): void {
             return;
         }
         if (hasLocalStorage) {
-            return window.localStorage.setItem(key, JSON.stringify(data))
+            return localStorage.setItem(key, JSON.stringify(data))
         }
     }
     catch (err) {
@@ -20,7 +20,7 @@ function getItem(key: string): any {
             return;
         }
         if (hasLocalStorage) {
-            return window.localStorage.getItem(key)
+            return localStorage.getItem(key)
         }
     }
     catch (err) {

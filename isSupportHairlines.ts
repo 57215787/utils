@@ -3,7 +3,7 @@ import {
     isIOS,
 } from "./env"
 
-const doc: Document = window.document;
+const doc: Document = document;
 const docEl = doc.documentElement;
 const dpr = window.devicePixelRatio || 1;
 
@@ -14,7 +14,7 @@ if (isIOS) {
     docEl.setAttribute('data-device', 'android');
 }
 
-if (window.devicePixelRatio >= 2) {
+if (dpr >= 2) {
     const fakeBody = doc.createElement('body');
     const testElement = doc.createElement('div');
     testElement.style.border = '.5px solid transparent';
